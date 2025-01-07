@@ -20,23 +20,24 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#include "NYM.h"
 #include "IMM.h"
 
-#include <calendar.h>
-
 #include <chrono>
-#include <string>
-#include <iostream>
+
 
 using namespace std;
 using namespace std::chrono;
 
-using namespace gregorian;
 
 
-
-int main()
+auto make_IMM_dates() -> const array<month_day, IMMDatesPerYear>&
 {
-	return 0;
+	static const auto ds = array{
+		March / day{ 20u },
+		June / day{ 20u },
+		September / day{ 20u },
+		December / day{ 20u }
+	};
+		
+	return ds;
 }

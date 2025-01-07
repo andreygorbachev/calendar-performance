@@ -20,23 +20,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#include "NYM.h"
-#include "IMM.h"
-
-#include <calendar.h>
+#pragma once
 
 #include <chrono>
-#include <string>
-#include <iostream>
-
-using namespace std;
-using namespace std::chrono;
-
-using namespace gregorian;
+#include <array>
 
 
+constexpr auto IMMDatesPerYear = std::size_t{ 4u };
 
-int main()
-{
-	return 0;
-}
+auto make_IMM_dates() -> const std::array<std::chrono::month_day, IMMDatesPerYear>&;
+// consider making it constexpr as well
