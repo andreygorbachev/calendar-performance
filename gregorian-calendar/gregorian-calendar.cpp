@@ -38,5 +38,26 @@ using namespace gregorian;
 
 int main()
 {
+	const auto& nym = make_NYM_calendar();
+
+	const auto& imm = make_IMM_dates();
+
+	const auto& from_until = nym.get_schedule().get_from_until();
+	const auto& from_year = from_until.get_from().year();
+	const auto& until_year = from_until.get_until().year();
+
+	auto number_of_business_days = 0;
+	for (auto year = from_year; year <= until_year; ++year)
+	{
+		for (const auto& imm_date : imm)
+		{
+			const auto date = year / imm_date;
+			if (nym.is_business_day(date))
+				++number_of_business_days;
+		}
+	}
+
+	cout << "Number of business days: " << number_of_business_days << endl;	
+
 	return 0;
 }
