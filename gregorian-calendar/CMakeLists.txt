@@ -1,7 +1,9 @@
 project("gregorian-calendar")
 
 add_executable(${PROJECT_NAME}
+  NYC.cpp
   gregorian-calendar.cpp
+  NYC.h
 )
 
 #find_package(Calendar)
