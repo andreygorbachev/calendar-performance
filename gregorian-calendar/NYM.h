@@ -26,4 +26,4 @@
 
 
 
-auto make_NYC_calendar() -> const gregorian::calendar&;
+auto make_NYM_calendar() -> const gregorian::calendar&;
