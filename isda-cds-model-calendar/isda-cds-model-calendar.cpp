@@ -33,5 +33,11 @@ using namespace std::chrono;
 
 int main()
 {
+	char holiday_name[] = "NYM";
+	char holiday_file[] = "..\\..\\..\\isda-cds-model-calendar\\NYM.csv";
+	const auto err1 = JpmcdsHolidayLoadFromDisk(holiday_name, holiday_file);
+	if (err1 != SUCCESS)
+		return err1;
+
 	return 0;
 }
