@@ -1,0 +1,55 @@
+project("isda_cds_model_c_v1.8.3")
+
+include_directories(lib/include/isda)
+
+add_library(${PROJECT_NAME}
+  lib/src/badday.c
+  lib/src/bsearch.c
+  lib/src/buscache.c
+  lib/src/busday.c
+  lib/src/cashflow.c
+  lib/src/cds.c
+  lib/src/cdsbootstrap.c
+  lib/src/cdsone.c
+  lib/src/cerror.c
+  lib/src/cfileio.c
+  lib/src/cfinanci.cpp
+  lib/src/cmemory.c
+  lib/src/contingentleg.c
+  lib/src/convert.c
+  lib/src/cx.c
+  lib/src/cxbsearch.c
+  lib/src/cxdatelist.c
+  lib/src/cxzerocurve.c
+  lib/src/date_sup.c
+  lib/src/dateadj.c
+  lib/src/dateconv.c
+  lib/src/datelist.c
+  lib/src/defaulted.c
+  lib/src/dtlist.c
+  lib/src/feeleg.c
+  lib/src/fltrate.c
+  lib/src/gtozc.c
+  lib/src/interpc.c
+  lib/src/ldate.c
+  lib/src/linterpc.c
+  lib/src/lintrp1.c
+  lib/src/lprintf.c
+  lib/src/lscanf.c
+  lib/src/rtbrent.c
+  lib/src/schedule.c
+  lib/src/streamcf.c
+  lib/src/strutil.c
+  lib/src/stub.c
+  lib/src/tcurve.c
+  lib/src/timeline.c
+  lib/src/version.c
+  lib/src/yearfrac.c
+  lib/src/zcall.c
+  lib/src/zcswap.c
+  lib/src/zcswdate.c
+  lib/src/zcswutil.c
+  lib/src/zr2coup.c
+  lib/src/zr2fwd.c
+  lib/src/zerocurve.c
+)
