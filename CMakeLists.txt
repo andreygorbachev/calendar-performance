@@ -8,3 +8,4 @@ set(CMAKE_CXX_EXTENSIONS Off)
 
 add_subdirectory(gregorian-calendar)
 add_subdirectory(isda_cds_model_c_v1.8.3)
+add_subdirectory(isda-cds-model-calendar)
