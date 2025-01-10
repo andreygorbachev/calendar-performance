@@ -53,3 +53,5 @@ add_library(${PROJECT_NAME}
   lib/src/zr2fwd.c
   lib/src/zerocurve.c
 )
+
+target_include_directories(${PROJECT_NAME} PUBLIC lib/include/isda)
