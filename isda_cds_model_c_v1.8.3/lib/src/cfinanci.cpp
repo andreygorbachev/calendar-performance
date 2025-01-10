@@ -48,7 +48,8 @@ int JpmcdsDiscountToRate
 
     if (discount <= 0.0)
     {
-        JpmcdsErrMsg ("%s: Bad discount factor %f.\n",routine,discount) ;
+        char errMsg[] = "%s: Bad discount factor %f.\n";
+        JpmcdsErrMsg(errMsg, routine, discount);
         goto done;
     }
 
@@ -61,12 +62,14 @@ int JpmcdsDiscountToRate
              */
             if (! ARE_ALMOST_EQUAL(discount, 1.0))
             {
-                JpmcdsErrMsg("%s: Start date (%s) equals end date (%s), "
-                          "but input disount factor (%f) <> 1.0\n",
-                          routine,
-                          JpmcdsFormatDate(startDate),
-                          JpmcdsFormatDate(endDate),
-                          discount);
+				char errMsg[] = "%s: Start date (%s) equals end date (%s), "
+					"but input disount factor (%f) <> 1.0\n";
+                JpmcdsErrMsg(
+                    errMsg,
+                    routine,
+                    JpmcdsFormatDate(startDate),
+                    JpmcdsFormatDate(endDate),
+                    discount);
                 goto done;
             }
             *rate = 1.0;
@@ -81,16 +84,15 @@ int JpmcdsDiscountToRate
 
     if (startDate == endDate)
     {
-        JpmcdsErrMsg("%s: Start date %s cannot equal end date.\n",
-                  routine, 
-                  JpmcdsFormatDate(startDate));
+		char errMsg[] = "%s: Start date %s cannot equal end date.\n";
+        JpmcdsErrMsg(errMsg, routine, JpmcdsFormatDate(startDate));
         goto done;
     }
 
     if (rateBasis < JPMCDS_SIMPLE_BASIS)
     {
-        JpmcdsErrMsg ("%s: Basis (%ld) < %d.\n",
-                   routine, rateBasis, JPMCDS_SIMPLE_BASIS) ;
+		char errMsg[] = "%s: Basis (%ld) < %d.\n";
+        JpmcdsErrMsg(errMsg, routine, rateBasis, JPMCDS_SIMPLE_BASIS);
         goto done;
     }
     
@@ -116,7 +118,8 @@ int JpmcdsDiscountToRate
 done:
     if (status == FAILURE)
     {
-        JpmcdsErrMsg("%s: Failed.\n", routine);
+		char errMsg[] = "%s: Failed.\n";
+        JpmcdsErrMsg(errMsg, routine);
     }
 
     return status;
@@ -144,7 +147,8 @@ int JpmcdsRateToDiscount
     {
        if (rate <= 0.0)
        {
-           JpmcdsErrMsg("%s: Bad rate (discount factor) %f\n",routine,rate);
+		   char errMsg[] = "%s: Bad rate (discount factor) %f\n";
+           JpmcdsErrMsg(errMsg, routine, rate);
            goto done;
        }
        *discount = rate;
@@ -153,8 +157,8 @@ int JpmcdsRateToDiscount
        
     if (rateBasis < JPMCDS_SIMPLE_BASIS)
     {
-        JpmcdsErrMsg ("%s: Basis (%ld) < %d.\n",routine,rateBasis,
-                   JPMCDS_SIMPLE_BASIS);
+		char errMsg[] = "%s: Basis (%ld) < %d\n";
+        JpmcdsErrMsg(errMsg, routine, rateBasis, JPMCDS_SIMPLE_BASIS);
         goto done;                      /* Failed */
     }
 
@@ -180,7 +184,8 @@ int JpmcdsRateToDiscount
 done:
     if (status == FAILURE)
     {
-        JpmcdsErrMsg("%s: Failed.\n", routine);
+		char errMsg[] = "%s: Failed.\n";
+        JpmcdsErrMsg(errMsg, routine);
     }    
     
     return status;
@@ -205,7 +210,8 @@ int JpmcdsDiscountToRateYearFrac(
     
     if (discount <= 0.0)
     {
-        JpmcdsErrMsg("%s: Discount %f <= 0.\n", routine, discount);
+        char errMsg[] = "%s: Discount %f <= 0.\n";
+        JpmcdsErrMsg(errMsg, routine, discount);
         *rate = 0.0;
         return FAILURE;
     }
@@ -216,8 +222,8 @@ int JpmcdsDiscountToRateYearFrac(
     case JPMCDS_SIMPLE_BASIS:
         if (IS_ALMOST_ZERO(yearFraction))
         {
-            JpmcdsErrMsg("%s: Bad discount:%f or year fraction:%f\n",
-                      routine, discount, yearFraction) ;
+			char errMsg[] = "%s: Bad discount:%f or year fraction:%f\n";
+            JpmcdsErrMsg(errMsg, routine, discount, yearFraction);
             *rate = 0;
             return FAILURE;
         }
@@ -227,7 +233,8 @@ int JpmcdsDiscountToRateYearFrac(
     case JPMCDS_DISCOUNT_RATE:
         if (IS_ALMOST_ZERO(yearFraction))
         {
-            JpmcdsErrMsg("%s: Undefined discount rate\n",routine);
+            char errMsg[] = "%s: Undefined discount rate\n";
+            JpmcdsErrMsg(errMsg, routine);
             *rate = 0.0;
             return FAILURE;
         }
@@ -237,12 +244,12 @@ int JpmcdsDiscountToRateYearFrac(
     case JPMCDS_CONTINUOUS_BASIS:
         if (IS_ALMOST_ZERO(yearFraction))
         {
-            JpmcdsErrMsg("%s: Div by zero - yr frac %f.\n",
-                      routine, yearFraction) ;
+			char errMsg[] = "%s: Div by zero - yr frac %f.\n";
+            JpmcdsErrMsg(errMsg, routine, yearFraction);
             *rate = 0.0;
             return FAILURE;
         }
-        *rate = (-log(discount)/yearFraction) ;
+        *rate = (-log(discount)/yearFraction);
         break;
 
     case JPMCDS_DISCOUNT_FACTOR:
@@ -252,8 +259,8 @@ int JpmcdsDiscountToRateYearFrac(
     default:
         if (IS_ALMOST_ZERO(yearFraction))
         {
-            JpmcdsErrMsg ("%s: Div by zero - yr frac %f.\n",
-                       routine, yearFraction) ;
+			char errMsg[] = "%s: Div by zero - yr frac %f.\n";
+            JpmcdsErrMsg(errMsg, routine, yearFraction);
             *rate = 0.0;
             return FAILURE;
         }
@@ -295,8 +302,8 @@ int JpmcdsRateToDiscountYearFrac(
             if (denom <= 0.0 ||
                 IS_ALMOST_ZERO(denom))
             {
-                JpmcdsErrMsg("%s: Invalid simple interest rate:%f\n",
-                          routine, rate);
+				char errMsg[] = "%s: Invalid simple interest rate:%f\n";
+                JpmcdsErrMsg(errMsg, routine, rate);
                 *discount = 0.0;
                 goto done;
             }
@@ -314,8 +321,8 @@ int JpmcdsRateToDiscountYearFrac(
             *discount = 1.0 - rate * yearFraction;
             if (*discount <= 0.0)
             {
-                JpmcdsErrMsg("%s: Invalid discount rate:%f\n",
-                          routine, rate);
+				char errMsg[] = "%s: Invalid discount rate:%f\n";
+                JpmcdsErrMsg(errMsg, routine, rate);
                 *discount = 0.0;
                 goto done;
             }
@@ -339,7 +346,8 @@ int JpmcdsRateToDiscountYearFrac(
             if (tmp <= 0.0 ||
                 IS_ALMOST_ZERO(tmp))
             {
-                JpmcdsErrMsg("%s: Bad rate: %f.\n", routine, rate);
+				char errMsg[] = "%s: Bad rate: %f.\n";
+                JpmcdsErrMsg(errMsg, routine, rate);
                 *discount = 0.0;
                 goto done;
             }
@@ -356,8 +364,9 @@ int JpmcdsRateToDiscountYearFrac(
     
     return SUCCESS;
 
- done:
-    JpmcdsErrMsg("%s: Failed.\n", routine);
+done:
+	char errMsg[] = "%s: Failed.\n";
+    JpmcdsErrMsg(errMsg, routine);
     return FAILURE;
 }
 
@@ -432,9 +441,9 @@ int JpmcdsRateValidYearFrac(
     case JPMCDS_SIMPLE_BASIS:
         if (rate * yearFraction <= -1.0)
         {
-            JpmcdsErrMsg("%s: Simple Rate (%f) * Year Fraction (%f) must "
-                      "be > -1.0.\n",
-                      routine, rate, yearFraction);
+			char errMsg[] = "%s: Simple Rate (%f) * Year Fraction (%f) must "
+				"be > -1.0.\n";
+            JpmcdsErrMsg(errMsg, routine, rate, yearFraction);
             goto done;
         }
         break;
@@ -442,9 +451,9 @@ int JpmcdsRateValidYearFrac(
     case JPMCDS_DISCOUNT_RATE:
         if (rate * yearFraction >= 1.0)
         {
-            JpmcdsErrMsg("%s: Discount Rate (%f) * Year Fraction (%f) must "
-                      "be < 1.0.\n",
-                      routine, rate, yearFraction);
+			char errMsg[] = "%s: Discount Rate (%f) * Year Fraction (%f) must "
+				"be < 1.0.\n";
+            JpmcdsErrMsg(errMsg, routine, rate, yearFraction);
             goto done;
         }
         break;
@@ -457,8 +466,8 @@ int JpmcdsRateValidYearFrac(
     case JPMCDS_DISCOUNT_FACTOR:
         if (rate <= 0.0)
         {
-            JpmcdsErrMsg("%s: Discount factor (%f) must be > 0.0.\n",
-                      routine, rate);
+			char errMsg[] = "%s: Discount factor (%f) must be > 0.0.\n";
+            JpmcdsErrMsg(errMsg, routine, rate);
             goto done;
         }
         break;
@@ -466,8 +475,8 @@ int JpmcdsRateValidYearFrac(
     default:
         if (rate <= -basis)
         {
-            JpmcdsErrMsg("%s: Rate (%f) must be greater than -basis (%f).\n",
-                      routine, rate, -basis);
+			char errMsg[] = "%s: Rate (%f) must be greater than -basis (%f).\n";
+            JpmcdsErrMsg(errMsg, routine, rate, -basis);
             goto done;
         }
         break;
