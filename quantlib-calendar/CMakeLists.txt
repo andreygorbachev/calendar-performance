@@ -4,10 +4,10 @@ add_executable(${PROJECT_NAME}
   quantlib-calendar.cpp
 )
 
+include(FetchContent)
+
 set(BOOST_INCLUDE_LIBRARIES math)
 set(BOOST_ENABLE_CMAKE ON)
-
-include(FetchContent)
 
 FetchContent_Declare(
   Boost
