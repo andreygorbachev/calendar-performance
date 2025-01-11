@@ -46,6 +46,8 @@ int main()
 	const auto& from_year = from_until.get_from().year();
 	const auto& until_year = from_until.get_until().year();
 
+	const auto start = high_resolution_clock::now();
+
 	auto number_of_business_days = 0;
 	for (auto year = from_year; year <= until_year; ++year)
 	{
@@ -57,7 +59,16 @@ int main()
 		}
 	}
 
-	cout << "Number of business days: " << number_of_business_days << endl;	
+	const auto stop = high_resolution_clock::now();
+
+	cout << "Number of business days: " << number_of_business_days << endl;
+
+	const auto duration = duration_cast<microseconds>(stop - start);
+	cout
+		<< " Duration: "s
+		<< duration.count()
+		<< " microseconds."s
+		<< endl;
 
 	return 0;
 }
