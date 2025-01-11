@@ -1,12 +1,29 @@
 project(quantlib-calendar)
 
+add_executable(${PROJECT_NAME}
+  quantlib-calendar.cpp
+)
+
 set(BOOST_INCLUDE_LIBRARIES math)
 set(BOOST_ENABLE_CMAKE ON)
 
 include(FetchContent)
+
 FetchContent_Declare(
-  boost
+  Boost
   GIT_REPOSITORY https://github.com/boostorg/boost.git
   GIT_TAG        boost-1.87.0
 )
-FetchContent_MakeAvailable(boost)
+FetchContent_MakeAvailable(Boost)
+
+#FetchContent_Declare(
+#  QuantLib
+#  GIT_REPOSITORY https://github.com/lballabio/QuantLib.git
+#  GIT_TAG        v1.36
+#)
+#FetchContent_MakeAvailable(QuantLib)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE
+  Boost::math
+#  QuantLib
+)
