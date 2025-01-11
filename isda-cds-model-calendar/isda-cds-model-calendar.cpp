@@ -42,14 +42,27 @@ int main()
 	if (err != SUCCESS)
 		return err;
 
-	TDate date = JpmcdsDate(2025l, 1l, 11l);
+	const auto from_year = 2022l;
+	const auto until_year = 2067l;
 
-	TBoolean is_business_day;
-	err = JpmcdsIsBusinessDay(date, holiday_name, &is_business_day);
-	if (err != SUCCESS)
-		return err;
+	auto number_of_business_days = 0;
+	for (auto year = from_year; year <= until_year; ++year)
+	{
+//		for (const auto& imm_date : imm)
+//		{
+			const auto date = JpmcdsDate(year, 1l, 11l);
 
-	cout << "Is " << date << " a business day? " << (is_business_day ? "Yes" : "No") << endl;
+			TBoolean is_business_day;
+			err = JpmcdsIsBusinessDay(date, holiday_name, &is_business_day);
+			if (err != SUCCESS)
+				return err;
+
+			if (is_business_day)
+				++number_of_business_days;
+//		}
+	}
+
+	cout << "Number of business days: " << number_of_business_days << endl;
 
 	return 0;
 }
