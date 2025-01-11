@@ -20,53 +20,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#include "IMM.h"
+#pragma once
 
-#include <dateconv.h>
-#include <busday.h>
+#include <mdydate.h>
 
-#include <chrono>
-#include <string>
-#include <iostream>
-
-using namespace std;
-using namespace std::chrono;
+#include <array>
 
 
 
-int main()
-{
-	auto err = SUCCESS;
+constexpr auto IMMDatesPerYear = std::size_t{ 4u };
 
-	static char holiday_name[] = "NYM";
-	static char holiday_file[] = "..\\..\\..\\isda-cds-model-calendar\\NYM.csv";
-	err = JpmcdsHolidayLoadFromDisk(holiday_name, holiday_file);
-	if (err != SUCCESS)
-		return err;
-
-	const auto& imm = make_IMM_dates();
-
-	const auto from_year = 2022l;
-	const auto until_year = 2067l;
-
-	auto number_of_business_days = 0;
-	for (auto year = from_year; year <= until_year; ++year)
-	{
-		for (const auto& imm_date : imm)
-		{
-			const auto date = JpmcdsDate(year, imm_date.month, imm_date.day);
-
-			auto is_business_day = TBoolean{};
-			err = JpmcdsIsBusinessDay(date, holiday_name, &is_business_day);
-			if (err != SUCCESS)
-				return err;
-
-			if (is_business_day)
-				++number_of_business_days;
-		}
-	}
-
-	cout << "Number of business days: " << number_of_business_days << endl;
-
-	return 0;
-}
+auto make_IMM_dates() -> const std::array<TMonthDayYear, IMMDatesPerYear>&;
+// consider making it constexpr as well
