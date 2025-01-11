@@ -61,7 +61,7 @@ int main()
 			if (err != SUCCESS)
 				return err;
 
-			if (is_business_day)
+			if (is_business_day == TRUE)
 				++number_of_business_days;
 		}
 	}
