@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#include <dateconv.h>
 #include <busday.h>
 
 #include <chrono>
@@ -33,13 +34,22 @@ using namespace std::chrono;
 
 int main()
 {
-	int err = SUCCESS;
+	int err;
 
 	static char holiday_name[] = "NYM";
 	static char holiday_file[] = "..\\..\\..\\isda-cds-model-calendar\\NYM.csv";
 	err = JpmcdsHolidayLoadFromDisk(holiday_name, holiday_file);
 	if (err != SUCCESS)
 		return err;
+
+	TDate date = JpmcdsDate(2025l, 1l, 11l);
+
+	TBoolean is_business_day;
+	err = JpmcdsIsBusinessDay(date, holiday_name, &is_business_day);
+	if (err != SUCCESS)
+		return err;
+
+	cout << "Is " << date << " a business day? " << (is_business_day ? "Yes" : "No") << endl;
 
 	return 0;
 }
