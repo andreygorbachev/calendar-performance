@@ -34,7 +34,7 @@ using namespace std::chrono;
 
 int main()
 {
-	int err;
+	auto err = SUCCESS;
 
 	static char holiday_name[] = "NYM";
 	static char holiday_file[] = "..\\..\\..\\isda-cds-model-calendar\\NYM.csv";
@@ -52,7 +52,7 @@ int main()
 //		{
 			const auto date = JpmcdsDate(year, 1l, 11l);
 
-			TBoolean is_business_day;
+			auto is_business_day = TBoolean{};
 			err = JpmcdsIsBusinessDay(date, holiday_name, &is_business_day);
 			if (err != SUCCESS)
 				return err;
