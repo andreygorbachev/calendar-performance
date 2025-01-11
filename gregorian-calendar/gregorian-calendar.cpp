@@ -61,7 +61,7 @@ int main()
 
 	const auto stop = high_resolution_clock::now();
 
-	cout << "Number of business days: " << number_of_business_days << endl;
+	cout << "Number of business days: "s << number_of_business_days << endl;
 
 	const auto duration = duration_cast<microseconds>(stop - start);
 	cout
