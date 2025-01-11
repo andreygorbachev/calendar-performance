@@ -37,7 +37,7 @@ int main()
 
 	static char holiday_name[] = "NYM";
 	static char holiday_file[] = "..\\..\\..\\isda-cds-model-calendar\\NYM.csv";
-	const auto err = JpmcdsHolidayLoadFromDisk(holiday_name, holiday_file);
+	err = JpmcdsHolidayLoadFromDisk(holiday_name, holiday_file);
 	if (err != SUCCESS)
 		return err;
 
