@@ -30,10 +30,10 @@ using namespace std;
 auto make_IMM_dates() -> const array<TMonthDayYear, IMMDatesPerYear>&
 {
 	static const auto ds = array{
-		TMonthDayYear{ {}, 3l, 20l },
-		TMonthDayYear{ {}, 6l, 20l },
-		TMonthDayYear{ {}, 9l, 20l },
-		TMonthDayYear{ {}, 12l, 20l }
+		TMonthDayYear{ 3l, 20l },
+		TMonthDayYear{ 6l, 20l },
+		TMonthDayYear{ 9l, 20l },
+		TMonthDayYear{ 12l, 20l }
 	};
 		
 	return ds;
