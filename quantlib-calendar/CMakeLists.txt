@@ -14,14 +14,17 @@ FetchContent_Declare(
   GIT_REPOSITORY https://github.com/boostorg/boost.git
   GIT_TAG        boost-1.87.0
 )
-FetchContent_MakeAvailable(Boost)
 
 FetchContent_Declare(
   QuantLib
   GIT_REPOSITORY https://github.com/lballabio/QuantLib.git
   GIT_TAG        v1.36
 )
-#FetchContent_MakeAvailable(QuantLib)
+
+FetchContent_MakeAvailable(
+	Boost
+#	QuantLib
+)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
   Boost::math
