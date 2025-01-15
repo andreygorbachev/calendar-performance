@@ -33,5 +33,7 @@ using namespace std::chrono;
 
 int main()
 {
+	const auto x = boost::math::ccmath::abs(-1.0);
+
 	return 0;
 }
