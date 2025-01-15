@@ -21,8 +21,8 @@ FetchContent_Declare(
 )
 
 FetchContent_MakeAvailable(
-	Boost
-#	QuantLib
+  Boost
+#  QuantLib
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
