@@ -7,7 +7,6 @@ add_executable(${PROJECT_NAME}
 include(FetchContent)
 
 set(BOOST_INCLUDE_LIBRARIES math)
-set(BOOST_ENABLE_CMAKE ON)
 
 FetchContent_Declare(
   Boost
