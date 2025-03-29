@@ -17,7 +17,7 @@ FetchContent_Declare(
 FetchContent_Declare(
   QuantLib
   GIT_REPOSITORY https://github.com/lballabio/QuantLib.git
-#  GIT_TAG        v1.36
+#  GIT_TAG        v1.37
 )
 
 FetchContent_MakeAvailable(
